@@ -12,10 +12,7 @@ module.exports = {
       categoryName: {
         type: Sequelize.STRING
       },
-      subCategory: {
-        type: Sequelize.STRING
-      },
-      image: {
+      categoryImage: {
         type: Sequelize.BLOB
       },
       createdAt: {
