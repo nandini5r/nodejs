@@ -1,6 +1,7 @@
 import express, {Application} from 'express';
 import { connectDB } from './database/db';
 import routes from './routes/routes';
+import swaggerDocs from './swagger/swagger';
 const app: Application = express();
 const port = 4000;
 
@@ -12,6 +13,7 @@ app.get('/', (req: any, res: any)=>{
 
 app.listen(port, ()=> {
     connectDB();
-    routes(app)
+    routes(app);
+    swaggerDocs(app,4000);
     console.log(`[Server]: I am running at https://localhost:${port}`);
 });

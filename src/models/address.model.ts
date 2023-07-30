@@ -48,9 +48,9 @@ Address.init({
     sequelize, // We need to pass the connection instance
     modelName: 'Address' // We need to choose the model name
 });
-Address.sync().then(() => {
-    console.log("Address model synced")
-})
+// Address.sync().then(() => {
+//     console.log("Address model synced")
+// })
 console.log(Address === sequelize.models.Address);
 
 export default Address;

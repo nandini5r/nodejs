@@ -1,4 +1,5 @@
 import jwt, { verify } from "jsonwebtoken";
+import Session from "../models/session.model";
 
 export const authUser = async(req:any,res:any,next:any)=>{
 try{
@@ -19,11 +20,36 @@ if(!authToken){
 
 
 }
-catch{
-
+catch (error) {
+    console.error('Error :', error);
+    return res.status(500).json({ error: 'Internal server error' });
+   
+}
 }
 
 
 
+export const sessionManagement = async(req:any, res:any, next:any)=>{
+    
+    
+    try{
+        const {tokenData} = req.body;
+        let sessionDetails = await Session.findOne({
+            where:{sessionId:tokenData.sessionId, userId:tokenData.userId}
+        })    
+                
+        if(sessionDetails){
+            next()
+        }else{
+            res.status(401).send("Authorisation Error")
+        }
+
+    }catch (error) {
+        console.error('Error :', error);
+        return res.status(500).json({ error: 'Internal server error' });
+       
+    }
+    
 
 }
+

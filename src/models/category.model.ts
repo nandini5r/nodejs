@@ -19,9 +19,9 @@ Category.init({
   sequelize, // We need to pass the connection instance
   modelName: 'Category' // We need to choose the model name
 });
-Category.sync().then(()=>{
-    console.log("Category model synced")
-})
+// Category.sync().then(()=>{
+//     console.log("Category model synced")
+// })
 console.log(Category === sequelize.models.Category); 
 
 export default Category;

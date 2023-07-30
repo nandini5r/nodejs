@@ -40,9 +40,9 @@ Product.init({
   sequelize, // We need to pass the connection instance
   modelName: 'Product' // We need to choose the model name
 });
-Product.sync().then(()=>{
-    console.log("Product model synced")
-})
+// Product.sync().then(()=>{
+//     console.log("Product model synced")
+// })
 console.log(Product === sequelize.models.Product); 
 
 export default Product;

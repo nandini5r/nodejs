@@ -21,9 +21,9 @@ Image.init({
   sequelize, // We need to pass the connection instance
   modelName: 'Image' // We need to choose the model name
 });
-Image.sync().then(()=>{
-    console.log("Image model synced")
-})
+// Image.sync().then(()=>{
+//     console.log("Image model synced")
+// })
 console.log(Image === sequelize.models.Image); 
 
 export default Image;
