@@ -1,4 +1,6 @@
 'use strict';
+const path = require('path');
+const fs = require('fs');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -12,11 +14,13 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    let filepath = path.join(__dirname,'./categoryImg');
+    let filepath = path.join('./categoryImg');
 
     const img1 = fs.readFileSync(filepath+"/furniture.png");
-    const img2 = fs.readFileSync(filepath+"/elctronics.png")
+    const img2 = fs.readFileSync(filepath+"/electronics.png")
     const img3 = fs.readFileSync(filepath+"/car.png")
+
+
     await queryInterface.bulkInsert('Categories',[
       {
         categoryName:"furniture",

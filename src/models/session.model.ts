@@ -21,7 +21,7 @@ Session.init({
     }
 }, {
   sequelize, // We need to pass the connection instance
-  modelName: 'Product' // We need to choose the model name
+  modelName: 'Session' // We need to choose the model name
 });
 // Session.sync().then(()=>{
 //     console.log("Session model synced")

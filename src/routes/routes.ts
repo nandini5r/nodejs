@@ -109,25 +109,25 @@ export default function routes(app:Application){
  *                   type: string
  */
     app.post('/login',login),
-    app.get('/logout',authUser,sessionManagement, logOut )
+    app.get('/logout',authUser, logOut )
          //user
-    app.get('/userProfile',authUser,sessionManagement,getUserProfile),
-    app.delete('/deleteUser',authUser,sessionManagement,deleteUserProfile),
-    app.post('/updateUser',authUser,sessionManagement,updateUserProfile)
+    app.get('/userProfile',authUser,getUserProfile),
+    app.delete('/deleteUser',authUser,deleteUserProfile),
+    app.post('/updateUser',authUser,updateUserProfile)
 //home routes
 //Product
-    app.post('/addProduct',sessionManagement,addProduct),
-    app.post('/updateProduct',sessionManagement,updateProductDetails),
-    app.delete('/deleteProduct/:id',sessionManagement,deleteProduct)
-    app.get('/getProductDetails',sessionManagement,getProductDetails)
-    app.post('/placeBid',authUser,sessionManagement,PlaceBid),
-    app.post('/product-image/:id',authUser,sessionManagement, Multer.single("image"),ProductImage) 
+    app.post('/addProduct',authUser,addProduct),
+    app.post('/updateProduct',updateProductDetails),
+    app.delete('/deleteProduct/:id',deleteProduct)
+    app.get('/getProductDetails',getProductDetails)
+    app.post('/placeBid',authUser,PlaceBid),
+    app.post('/product-image/:id',authUser, Multer.single("image"),ProductImage) 
 
 
 //address
-    app.post('/addAddress',authUser,sessionManagement,addAddress),
-    app.patch('/updateAddress',authUser,sessionManagement,updateAddress),
-    app.delete('/deleteAddress/:id',authUser,sessionManagement,deleteAddress)
+    app.post('/addAddress',authUser,addAddress),
+    app.patch('/updateAddress',authUser,updateAddress),
+    app.delete('/deleteAddress/:id',authUser,deleteAddress)
 }
    
 

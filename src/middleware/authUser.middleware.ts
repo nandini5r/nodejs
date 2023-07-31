@@ -33,9 +33,10 @@ export const sessionManagement = async(req:any, res:any, next:any)=>{
     
     
     try{
-        const {tokenData} = req.body;
+        const {authorization} = req.headers;
+        console.log(authorization,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
         let sessionDetails = await Session.findOne({
-            where:{sessionId:tokenData.sessionId, userId:tokenData.userId}
+            where:{sessionId:authorization.sessionId, userId:authorization.userId}
         })    
                 
         if(sessionDetails){

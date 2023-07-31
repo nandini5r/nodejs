@@ -39,8 +39,6 @@ export const login = async (req: any, res: any, next: any) => {
     // let {error} = await loginValidate.validateAsync(req.body)
     try {
 
-
-
         let user_exist: any = await User.findOne({ where: { email: email, password: password } });
 
         console.log(user_exist, "AA");
@@ -50,7 +48,26 @@ export const login = async (req: any, res: any, next: any) => {
             res.status(500).json({ error: errormessage })
         }
 
-        const token = jwt.sign({ userid: user_exist?.userId }, Key, { expiresIn: '24h' })
+        const token: any = jwt.sign({ userid: user_exist?.userId }, Key, { expiresIn: '24h' })
+
+        // console.log("session object",req.session)
+
+        // let sessiom1 = await Session.create({
+        //     id:req.session.id,
+        //     userId:token.id,
+        //     device_type:"g chrome",
+        //     deviceId:1234
+
+        // })
+        // console.log("sesssssssssssssion",sessiom1)
+        // .then((result:any)=>{
+        //     console.log("hyyy",result)
+        // }).catch((err:any)=>{
+        //     console.log("errror",err)
+        // })
+
+
+
         return res.status(200).json({
             message: "Login succesfull",
             token: token
@@ -69,25 +86,25 @@ export const login = async (req: any, res: any, next: any) => {
 export const forgetPassword = async (req: any, res: any) => {
     console.log(req.body);
 
-    try {
-        if (req.body) {
-            if (req.body.newPassword == req.body.confirmPassword) {
-                let encrypPassword = await bcrypt.hash(req.body.newPassword, 5);
-                const updatePassword = await User.update(
-                    { password: encrypPassword },
-                    { where: { id: req.body.userId } }
-                );
+    // try {
+    //     if (req.body) {
+    //         if (req.body.newPassword == req.body.confirmPassword) {
+    //             let encrypPassword = await bcrypt.hash(req.body.newPassword, 5);
+    //             const updatePassword = await User.update(
+    //                 { password: encrypPassword },
+    //                 { where: { id: req.body.userId } }
+    //             );
 
-                res.send('Password has successfully changed')
-            }
-            else {
-                res.send('Password does not match')
-            }
-        }
-    } catch (error) {
-        console.error('Error creating new user:', error);
-        return res.status(500).json({ error: 'Internal server error' });
-    }
+    //             res.send('Password has successfully changed')
+    //         }
+    //         else {
+    //             res.send('Password does not match')
+    //         }
+    //     }
+    // } catch (error) {
+    //     console.error('Error creating new user:', error);
+    //     return res.status(500).json({ error: 'Internal server error' });
+    // }
 
 }
 
