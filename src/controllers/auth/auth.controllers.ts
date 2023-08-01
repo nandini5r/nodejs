@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { loginValidate, registerValidate } from "../../Validations/validations";
 import Session from "../../models/session.model";
+import { client } from "../../database/db";
 const Key = "key"
 
 
@@ -39,39 +40,35 @@ export const login = async (req: any, res: any, next: any) => {
     // let {error} = await loginValidate.validateAsync(req.body)
     try {
 
-        let user_exist: any = await User.findOne({ where: { email: email, password: password } });
+        let user_exist: any = await User.findOne({ where: { email: email }, attributes:['id'] }, );
 
-        console.log(user_exist, "AA");
+        console.log(user_exist.dataValues.id, "OTLAOTLAOTLAOTLA-------------------------");
 
         if (!user_exist) {
             const errormessage = "Unauthorized user "
             res.status(500).json({ error: errormessage })
+        } else {
+            let session_payload:any={
+                userId:user_exist.dataValues.id,
+            }
+            console.log(session_payload,'SPLSPLSPDFLSDFSDFKJSDHKFHKJSDFJHSDHFKSJDFJKSDFK');
+            
+            let session=  await Session.create({
+                userId:+user_exist.dataValues.id
+            })
+
+            let result =  await client.set(
+                        `${user_exist.dataValues.id}_session`,session_payload
+                    )
+            const token: any = jwt.sign({ userid:user_exist.dataValues.id }, Key, { expiresIn: '24h' })
+          
+            return res.status(200).json({
+                message: "Login succesfull",
+                token: token
+            })
         }
 
-        const token: any = jwt.sign({ userid: user_exist?.userId }, Key, { expiresIn: '24h' })
 
-        // console.log("session object",req.session)
-
-        // let sessiom1 = await Session.create({
-        //     id:req.session.id,
-        //     userId:token.id,
-        //     device_type:"g chrome",
-        //     deviceId:1234
-
-        // })
-        // console.log("sesssssssssssssion",sessiom1)
-        // .then((result:any)=>{
-        //     console.log("hyyy",result)
-        // }).catch((err:any)=>{
-        //     console.log("errror",err)
-        // })
-
-
-
-        return res.status(200).json({
-            message: "Login succesfull",
-            token: token
-        })
     }
 
     catch (error) {
@@ -86,25 +83,25 @@ export const login = async (req: any, res: any, next: any) => {
 export const forgetPassword = async (req: any, res: any) => {
     console.log(req.body);
 
-    // try {
-    //     if (req.body) {
-    //         if (req.body.newPassword == req.body.confirmPassword) {
-    //             let encrypPassword = await bcrypt.hash(req.body.newPassword, 5);
-    //             const updatePassword = await User.update(
-    //                 { password: encrypPassword },
-    //                 { where: { id: req.body.userId } }
-    //             );
+    try {
+        if (req.body) {
+            if (req.body.newPassword == req.body.confirmPassword) {
+                let encrypPassword = await bcrypt.hash(req.body.newPassword, 5);
+                const updatePassword = await User.update(
+                    { password: encrypPassword },
+                    { where: { id: req.body.userId } }
+                );
 
-    //             res.send('Password has successfully changed')
-    //         }
-    //         else {
-    //             res.send('Password does not match')
-    //         }
-    //     }
-    // } catch (error) {
-    //     console.error('Error creating new user:', error);
-    //     return res.status(500).json({ error: 'Internal server error' });
-    // }
+                res.send('Password has successfully changed')
+            }
+            else {
+                res.send('Password does not match')
+            }
+        }
+    } catch (error) {
+        console.error('Error creating new user:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
 
 }
 
@@ -114,7 +111,7 @@ export const logOut = async (req: any, res: any) => {
     try {
 
         let result = await Session.destroy({ where: { userId: req.body.userId } })
-
+            return  res.send("user successfully logout")
 
     } catch (error) {
         console.error('Error creating new user:', error);

@@ -1,6 +1,8 @@
+import { buffer } from "stream/consumers";
 import Image from "../../models/images.model";
 import Product from "../../models/product.model";
 import fs from "fs"
+import path from "path"
 export const addProduct = async (req: any, res: any) => {
 
     try {
@@ -86,11 +88,14 @@ export const ProductImage = async(req:any, res:any)=>{
 
     if(req.file){
         try{
-            const filePath = fs.readFileSync(req.file.path);
+            const filePaths = path.join("uploads",<string>req.file.filename)
+            console.log(filePaths);
             
+            const filePath = fs.readFileSync(filePaths);
+              const fileUpload = Buffer.from(filePath)
             let productImage = await Image.create({
-                image:filePath,
-                product_id: id,
+                images:fileUpload,
+                productId: id,
             })
 
             res.send(productImage)

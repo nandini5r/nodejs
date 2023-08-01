@@ -1,7 +1,14 @@
 import { DataTypes,Model } from "sequelize";
 import {sequelize} from "../database/db"
 
-class Session extends Model {}
+class Session extends Model {
+    public id!:number;
+    public userId!:number;
+    public device_type!: string;
+    public deviceId!:number;
+
+
+}
 
 Session.init({
     id:{
@@ -13,19 +20,24 @@ Session.init({
         type:DataTypes.INTEGER
     },
     device_type:{
-        type:DataTypes.STRING
+        type:DataTypes.STRING,
+        defaultValue:null
     },
-    deviceId:
-    {
-        type:DataTypes.INTEGER
+    deviceId:{
+        type:DataTypes.INTEGER,
+        defaultValue:null
     }
 }, {
   sequelize, // We need to pass the connection instance
   modelName: 'Session' // We need to choose the model name
 });
-// Session.sync().then(()=>{
-//     console.log("Session model synced")
-// })
+
+
+
+
+Session.sync({alter:true}).then(()=>{
+    console.log("Session model synced")
+})
 console.log(Session === sequelize.models.Session); 
 
 export default Session;

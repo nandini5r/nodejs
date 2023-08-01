@@ -1,7 +1,17 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../database/db"
 
-class Address extends Model { }
+class Address extends Model {
+    public id!:number;
+    public house_no!:string;
+    public street!:string;
+    public landmark!:string;
+    public country!:string;
+    public city!:string;
+    public zipcode!:bigint;
+    public state!:string;
+    public address_type!:string;
+ }
 
 Address.init({
     id: {

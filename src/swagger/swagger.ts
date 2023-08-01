@@ -1,7 +1,7 @@
 import { Application } from 'express'
 import swaggerJsdoc from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
-// import routes from "../routes/route"
+import routes from "../routes/routes";
 
 
 function swaggerDocs(app: Application, port: any) {
@@ -29,7 +29,7 @@ function swaggerDocs(app: Application, port: any) {
                 },
             ],
         },
-        apis: ["src/routes/routes.ts"],
+        apis: ['./routes/routes.ts'],
     };
 
     const specs = swaggerJsdoc(options);
