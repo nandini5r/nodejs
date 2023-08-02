@@ -14,3 +14,20 @@ export const loginValidate = Joi.object({
     password:Joi.string().min(2).max(10).required()
 })
 
+  export const addressValidate = Joi.object({
+    street: Joi.string().alphanum().trim().min(3).max(50).required(),
+    house_no: Joi.string().alphanum().trim().min(3).max(50).required(),
+    landmark: Joi.string().alphanum().trim().min(3).max(50).required(),
+    city: Joi.string().trim().min(3).max(50).required(),
+    country: Joi.string().trim().min(3).max(50).required(),
+    state: Joi.binary().required(),
+    address_type: Joi.string().max(10).required(),
+    zipcode: Joi.number().max(6).required(),
+  });
+  
+  
+  export const forgetPasswordValidate = Joi.object({
+    newPassword: Joi.string().token().min(5).max(30).required(),
+    confirmPassword: Joi.string().token().min(5).max(30).required(),
+  });
+  

@@ -229,6 +229,47 @@ export default function routes(app:Application){
 
 
     //address
+
+
+  /**
+   * @swagger
+   * /addAddress:
+   *  post:
+   *    tags:
+   *    - User
+   *    description: Adding address of user.
+   *    requestBody:
+   *      required: true
+   *      content:
+   *        application/json:
+   *          schema:
+   *            type: object
+   *            properties:
+   *              house_no:
+   *                type: string
+   *              street:
+   *                type: string
+   *              landmark:
+   *                type: string
+   *              country:
+   *                type: string
+   *               city:
+   *                type: string
+   *              state:
+   *                type: string
+   *              address_type:
+   *                type: string
+   *              zipCode:
+   *                type: bigint
+   *    responses:
+   *      200:
+   *        description: Address Insertion successful.
+   *      400:
+   *        description: Bad Request - Invalid data provided.
+   *      500:
+   *        description: Internal Server Error - Failed to register user.
+   */
+
     app.post('/addAddress',authUser,addAddress),
     app.patch('/updateAddress',authUser,updateAddress),
     app.delete('/deleteAddress/:id',authUser,deleteAddress)

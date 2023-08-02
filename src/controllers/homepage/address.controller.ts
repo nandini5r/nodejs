@@ -1,63 +1,66 @@
+import { addressValidate } from "../../Validations/validations";
 import Address from "../../models/address.model";
 
-export const addAddress = async(req:any,res:any)=>{
+export const addAddress = async (req: any, res: any) => {
     console.log("nnnnnnn")
-    try{
+    try {
 
-        const { userId,house_no, street,  landmark, country, city ,zipCode,state,address_type} = req.body;
-        let addressInfo  = await Address.create({
+        const { userId, house_no, street, landmark, country, city, zipCode, state, address_type } = req.body;
+        let { error } = await addressValidate.validateAsync(req.body)
+
+        let addressInfo = await Address.create({
             userId: userId,
-            house_no:house_no,
-            street:street,
-            landmark:landmark,
-            country:country,
-            city:city,
-            zipCode:zipCode,
-            state:state,
-            address_type:address_type
+            house_no: house_no,
+            street: street,
+            landmark: landmark,
+            country: country,
+            city: city,
+            zipCode: zipCode,
+            state: state,
+            address_type: address_type
         })
-         console.log(addressInfo,"OOOOO")
+        console.log(addressInfo, "OOOOO")
         return res.send("addressInfo");
-    }   catch (error) {
+    } catch (error) {
         console.error('Error :', error);
         return res.status(500).json({ error: 'Internal server error' });
-       
+
     }
-    
+
 }
 
-export const updateAddress =async (req:any,res:any) => {
+export const updateAddress = async (req: any, res: any) => {
 
-    try{
-        if(req.body){
+    try {
+        if (req.body) {
             const address_id = req.body.id
             const updateAddressInfo = await Address.update(
-              req.body,{ where: { id: address_id } }
+                req.body, { where: { id: address_id } }
 
             )
 
             res.send('Address  Updated')
 
         }
-        else{
+        else {
             res.send('Invalid Info')
-          }
+        }
     }
     catch (error) {
         console.error('Error :', error);
         return res.status(500).json({ error: 'Internal server error' });
-       
+
     }
 }
 
-export const deleteAddress = async(req:any, res:any)=>{
-    try{
-        const address = await Address.destroy({where:{id:req.body.id}})
-        res.send( "Address Deleted successfully")
+export const deleteAddress = async (req: any, res: any) => {
+    try {
+        const address = await Address.destroy({ where: { id: req.body.id } })
+        res.send("Address Deleted successfully")
 
     } catch (error) {
         console.error('Error :', error);
         return res.status(500).json({ error: 'Internal server error' });
-       
+
     }
 }
