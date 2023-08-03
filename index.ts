@@ -4,8 +4,9 @@ import routes from './src/routes/route';
 import axios from 'axios';
 // import { redis } from './src/database/redis';
 import swaggerDocs from './src/swagger/swagger';
+import { redis } from './src/database/redis';
 const app: Application = express();
-const port = 3000;
+const port = 3001;
 
 app.use(express.json());
 
@@ -17,6 +18,6 @@ app.listen(port, ()=> {
     connectDB();
     routes(app);
     swaggerDocs(app, 3000)
-    // redis()
+    redis()
     console.log(`[Server]: I am running at https://localhost:${port}`);
 });

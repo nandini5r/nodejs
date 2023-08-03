@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt"
 const profileDetail = new mongoose.Schema({
     name:{
@@ -41,10 +41,12 @@ const users = new mongoose.Schema({
 
 
 
-export const hashPassword = async (password: any) => {
-    const salt = await bcrypt.genSalt(12);
-    const passwordHash = await bcrypt.hash(password, salt);
-    return passwordHash;
-  };
-// users.methods.generateAuth = async() =>{}
+const sessionSchema = new Schema({
+    user_id:{type:String},
+    session_id:{type:String},
+    device_type:{type:String},
+    device_id:{type:String}
+})
+export const sessionModel = mongoose.model('Session',sessionSchema)
+
 export const UserData = mongoose.model('UserData',users)

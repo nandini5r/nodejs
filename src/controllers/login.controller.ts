@@ -6,9 +6,6 @@ import { loginValidate } from "../validations/validations";
 const Key = "key"
 
 
-
-
-
 export const login = async (req: any, res: any, next: any) => {
     const { email, password } = req.body
     let {error} = await loginValidate.validateAsync(req.body)

@@ -10,6 +10,6 @@ export const registerValidate = Joi.object({
 
 
 export const loginValidate = Joi.object({
-    username:Joi.string().min(4).max(20).token().required(),
-    password:Joi.string().min(8).max(30).required()
+    email:Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] }}).required(),
+    password:Joi.string().min(2).max(30).required()
 })
