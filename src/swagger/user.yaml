@@ -1,0 +1,132 @@
+paths:
+  /userProfile:
+    get:
+      summary: get user Info
+      description:  get user Info
+      tags:
+        - User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+      responses:
+        "200":
+          description: Successful user data fetch
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  token:
+                    type: string
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+/updateUserProfile:
+  post:
+    summary: Update User
+    description: Update User
+    tags:
+      - User
+    requestBody:
+      required: true
+      content:
+        application/json:
+      "200":
+        description: Successful updating
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                token:
+                  type: string
+      "401":
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+
+/profilePic:
+  post:
+    summary: User Image upload
+    description: User Image upload
+    tags:
+      - User
+    requestBody:
+      required: true
+      content:
+        application/json:
+    responses:
+      "200":
+        description: Successfully uploaded
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                token:
+                  type: string
+      "401":
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+
+/deleteUserProfile:
+  delete:
+    summary: Delete User
+    description: Delete User.
+    tags:
+      - User
+    requestBody:
+      required: true
+      content:
+        application/json:
+    responses:
+      "200":
+        description: Successfully Deleted
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                token:
+                  type: string
+      "401":
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string

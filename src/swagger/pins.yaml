@@ -1,0 +1,133 @@
+paths:
+  /pin:
+    post:
+      summary: Create Pin
+      description: Create Pin
+      tags:
+        - Pin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                image:
+                  type: blob
+                title:
+                  type: string
+                category_id: 
+                  type: integer
+                description: 
+                  type: string
+                like_count: 
+                  type: integer
+                comment_count: 
+                  type: integer
+                pinned: 
+                  type: boolean
+      responses:
+        "200":
+          description: Successful creating Pin
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  token:
+                    type: string
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+/updatePin:
+  post:
+    summary: Update Pin
+    description: Update Pin.
+    tags:
+      - Pin
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              user_id:
+                type: integer
+              image:
+                type: blob
+              title:
+                type: string
+              category_id: 
+                type: integer
+              description: 
+                type: string
+              like_count: 
+                type: integer
+              comment_count:
+                type: integer
+              pinned:
+                type: boolean
+      "200":
+        description: Successful updating
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                token:
+                  type: string
+      "401":
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+
+/pinImage:
+  post:
+    summary: Pin Image upload
+    description: Pin Image upload
+    tags:
+      - Pin
+    requestBody:
+      required: true
+      content:
+        application/json:
+    responses:
+      "200":
+        description: Successfully uploaded
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                token:
+                  type: string
+      "401":
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string

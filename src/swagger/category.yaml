@@ -1,0 +1,187 @@
+paths:
+  /createCategory:
+    post:
+      summary: Create Category
+      description: Create Category.
+      tags:
+        - Category
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                image:
+                  type: blob
+                parent_id:
+                  type: integer
+      responses:
+        "200":
+          description: Successful creating Category
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  token:
+                    type: string
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+/getCategory:
+  get:
+    summary: Get Category
+    description: Get Category.
+    tags:
+      - Category
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              image:
+                type: blob
+              parent_id:
+                type: integer
+    responses:
+      "200":
+        description: Successful getting Category
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                token:
+                  type: string
+      "401":
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+
+/updateCategory:
+  post:
+    summary: Update Category
+    description: Update Category.
+    tags:
+      - Category
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              image:
+                type: blob
+              parent_id:
+                type: integer
+    responses:
+      "200":
+        description: Successful updating
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                token:
+                  type: string
+      "401":
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+
+/deleteCategory:
+  delete:
+    summary: Delete Category
+    description: Delete Category.
+    tags:
+      - Category
+    requestBody:
+      required: true
+      content:
+        application/json:
+    responses:
+      "200":
+        description: Successfully Deleted
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                token:
+                  type: string
+      "401":
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+
+/categoryImage:
+  post:
+    summary: Category Image upload
+    description: Category Image upload
+    tags:
+      - Category
+    requestBody:
+      required: true
+      content:
+        application/json:
+    responses:
+      "200":
+        description: Successfully uploaded
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                token:
+                  type: string
+      "401":
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
