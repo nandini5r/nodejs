@@ -42,44 +42,40 @@ paths:
 
 /getCategory:
   get:
-    summary: Get Category
-    description: Get Category.
+    summary: Retrieve Category by ID
+    description: Retrieve a Category by its unique ID.
     tags:
       - Category
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              name:
-                type: string
-              image:
-                type: blob
-              parent_id:
-                type: integer
+
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+        type: string
+        description: The ID of the Category to retrieve.
+      - name: Authorization
+        in: headers
+        description: Bearer token
+        required: true
+        type: string
+        security:
+          - BearerAuth: []
     responses:
       "200":
-        description: Successful getting Category
+        description: Successful response with the retrieved Category.
         content:
           application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                token:
-                  type: string
+            example:
+              id: 12345
+              name: Example Category
+              description: This is an example category.
       "401":
         description: Unauthorized
         content:
           application/json:
-            schema:
-              type: object
-              properties:
-                error:
-                  type: string
+            example:
+              error: Unauthorized access
 
 /updateCategory:
   post:

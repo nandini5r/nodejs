@@ -3,10 +3,11 @@ import Pin from "../../models/pin.model";
 import Saved from "../../models/saved.model";
 import { client } from "../../database/redis"
 import Category from "../../models/category.model";
-
+import { createPinValid ,updatePinValid} from "../../validations/feature.validations";
 
 export const createPin = async (req: any, res: any) => {
 
+    let { error } = await createPinValid.validateAsync(req.body)
 
     try {
 
@@ -35,6 +36,7 @@ export const createPin = async (req: any, res: any) => {
 
 export const updatePin = async (req: any, res: any) => {
     try {
+       let { error } = await updatePinValid.validateAsync(req.body)
         let pinData = await Pin.update(req.body, { where: { id: req.body.id } })
         return res.send(pinData)
 
@@ -209,7 +211,7 @@ export const setRecentPins = async (req: any, res: any) => {
 
 
         const pinIds = recentPins.map(pin => pin.id);
-        console.log(pinIds, 'llllllllllllllllllllllllllllllllll')
+        console.log(pinIds, 'lllll')
         const pinIdValue = JSON.stringify(pinIds);
 
         let setRecentPins = await client.set('recentPin', pinIdValue)

@@ -3,7 +3,7 @@ paths:
     post:
       summary: Authenticate user
       description: Authenticate a user with their credentials.
-      tags: 
+      tags:
         - Auth
       requestBody:
         required: true
@@ -31,7 +31,7 @@ paths:
                   type: string
                   format: int64
       responses:
-        '200':
+        "200":
           description: Successful Signup
           content:
             application/json:
@@ -42,7 +42,7 @@ paths:
                     type: string
                   token:
                     type: string
-        '401':
+        "401":
           description: Unauthorized
           content:
             application/json:
@@ -51,115 +51,115 @@ paths:
                 properties:
                   error:
                     type: string
-       
 
-      
 /login:
-    post:
-      summary: Authenticate user
-      description: Authenticate a user with their credentials.
-      tags: 
-        - Auth
-      requestBody:
-        required: true
+  post:
+    summary: Authenticate user
+    description: Authenticate a user with their credentials.
+    tags:
+      - Auth
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+    responses:
+      "200":
+        description: Successful Login
         content:
           application/json:
             schema:
               type: object
               properties:
-                email:
+                message:
                   type: string
-                password:
+                token:
                   type: string
-      responses:
-        '200':
-          description: Successful Signup
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                  token:
-                    type: string
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
+      "401":
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
 
 /logout:
-    get:
-      summary: Logout user
-      description: Logout a user by invalidating their session.
-      tags: 
-        - Auth
-      responses:
-        '200':
-          description: Successful logout
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                  token:
-                    type: string
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-
-/forgetPass:
-    post:
-      summary: Reset Password
-      description: Reset a user's password.
-      tags:
-        - Auth
-      requestBody:
-        required: true
+  post:
+    summary: Logout user
+    description: Authenticate a user with their credentials.
+    tags:
+      - Auth
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              user_id:
+                type: number
+    responses:
+      "200":
+        description: Successfully Logged Out
         content:
           application/json:
             schema:
               type: object
               properties:
-                newPassword:
+                message:
                   type: string
-                confirmPassword:
+                token:
                   type: string
-      responses:
-        '200':
-          description: Password Reset Successful
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-
-
-
-
-
-
+      "401":
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+/forgetPass:
+  post:
+    summary: Reset Password
+    description: Reset a user's password.
+    tags:
+      - Auth
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              newPassword:
+                type: string
+              confirmPassword:
+                type: string
+    responses:
+      "200":
+        description: Password Reset Successful
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+      "401":
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string

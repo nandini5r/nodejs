@@ -1,19 +1,15 @@
 paths:
-  /userProfile:
+  /userProfile/{id}:
     get:
       summary: get user Info
-      description:  get user Info
+      description: get user Info
+      parameters:
+        - in: path
+          name: id
+      schema:
+        type: string
       tags:
         - User
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                user_id:
-                  type: integer
       responses:
         "200":
           description: Successful user data fetch

@@ -1,7 +1,6 @@
 import jwt, { verify } from "jsonwebtoken";
 import { client } from "../database/redis";
 import Session from "../models/session.model";
-// import Session from "../models/session.model";
 
 export const authUser = async (req: any, res: any, next: any) => {
     try {
@@ -16,7 +15,7 @@ export const authUser = async (req: any, res: any, next: any) => {
             console.log(token, "token")
             console.log("Aaaaaaaa")
             
-            let findSession:any = (await client.get(`${token.user_id}_session`)) ||  (await Session.findOne({ where: {userId : token.user_id}}));
+            let findSession:any = (await client.get("session")) ||  (await Session.findOne({ where: {user_id: token.userid}}));
             if(findSession){
                 next()
             }

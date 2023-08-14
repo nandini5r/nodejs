@@ -1,6 +1,4 @@
-import { Op, json } from "sequelize";
 import Category from "../../models/category.model"
-import { client } from "../../database/redis";
 
 export const createCategory = async (req: any, res: any) => {
 
@@ -16,6 +14,7 @@ export const createCategory = async (req: any, res: any) => {
 
             }
         )
+
         return res.send(categoryData)
     }
     catch (error) {
@@ -29,12 +28,12 @@ export const createCategory = async (req: any, res: any) => {
 
 export const getCategoryDetails = async (req: any, res: any) => {
     try {
-
+         console.log(req.params.id,"idididid")
         let categoryData = await Category.findAll(
-            { where: { id: req.body.id } }
+            { where: { id: req.params.id } }
         )
 
-        return res.send("result")
+        return res.send(categoryData)
     }
     catch (error) {
         console.error('Error :', error);

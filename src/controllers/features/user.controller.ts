@@ -1,4 +1,6 @@
 import User from "../../models/user.model";
+import { updateUserValidation } from "../../validations/feature.validations";
+
 
 export const getUserProfile = async(req:any , res:any) =>{
     try{
@@ -33,8 +35,11 @@ export const deleteUserProfile = async(req:any, res:any)=>{
 
 
 export const updateUserProfile = async (req: any, res: any) => {
-    try {
-      if(req.body){
+  try {
+    let { error } = await updateUserValidation.validateAsync(req.body)
+
+    if(req.body){
+
         const user_id = req.body.id
         const updateUserInfo = await User.update(
           req.body,{ where: { id: user_id } }
