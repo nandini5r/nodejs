@@ -59,17 +59,13 @@ paths:
         description: Bearer token
         required: true
         type: string
-        security:
-          - BearerAuth: []
     responses:
       "200":
         description: Successful response with the retrieved Category.
-        content:
-          application/json:
-            example:
-              id: 12345
-              name: Example Category
-              description: This is an example category.
+        example:
+          id: 12345
+          name: Example Category
+          description: This is an example category.
       "401":
         description: Unauthorized
         content:
@@ -121,16 +117,23 @@ paths:
 /deleteCategory:
   delete:
     summary: Delete Category
-    description: Delete Category.
+    description: Deletes a category.
     tags:
       - Category
-    requestBody:
-      required: true
-      content:
-        application/json:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        content:
+          application/json:
+            properties:
+              categoryId:
+                type: string
+                description: The ID of the category to be deleted.
+                example: "12345"
     responses:
       "200":
-        description: Successfully Deleted
+        description: Category Deleted Successfully
         content:
           application/json:
             schema:
@@ -138,8 +141,11 @@ paths:
               properties:
                 message:
                   type: string
+                  example: "Category with ID 12345 has been deleted."
                 token:
                   type: string
+                  description: An authentication token if applicable.
+                  example: "your-auth-token"
       "401":
         description: Unauthorized
         content:
@@ -149,6 +155,7 @@ paths:
               properties:
                 error:
                   type: string
+                  example: "Authentication application/json:on failed."
 
 /categoryImage:
   post:

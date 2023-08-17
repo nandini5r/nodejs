@@ -6,10 +6,10 @@ export const getUserProfile = async(req:any , res:any) =>{
     try{
 
         let userInfo = await User.findAll(
-          {where:{ id:req.body.id}}
+          {where:{ id:req.params.id}}
         )
       
-       return res.send( "result")
+       return res.send(userInfo)
     }
     catch (error) {
         console.error('Error :', error);
@@ -22,7 +22,7 @@ export const getUserProfile = async(req:any , res:any) =>{
 
 export const deleteUserProfile = async(req:any, res:any)=>{
     try{
-        const user = await User.destroy({where:{id:req.body.id}})
+        const user = await User.destroy({where:{id:req.params.id}})
         res.send( "User Deleted successfully")
 
     } catch (error) {
@@ -40,9 +40,9 @@ export const updateUserProfile = async (req: any, res: any) => {
 
     if(req.body){
 
-        const user_id = req.body.id
+        const user_id = req.params.id
         const updateUserInfo = await User.update(
-          req.body,{ where: { id: user_id } }
+          req.body,{ where: { id:user_id } }
         );
         res.send('UserInfo Updated')
       }

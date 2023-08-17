@@ -14,7 +14,7 @@ export const createPinValid = Joi.object({
     title:Joi.string().min(2).max(20).required(),
     category_id:Joi.number().required(),
     user_id:Joi.number().required(),
-    description:Joi.string().min(4).max(20).required(),
+    description:Joi.string().min(4).max(50).required(),
     like_count:Joi.number().required(),
     comment_count:Joi.number().required(),
     image:Joi.optional()
@@ -24,7 +24,7 @@ export const updatePinValid = Joi.object({
     title:Joi.string().min(2).max(20).optional(),
     category_id:Joi.number().optional(),
     user_id:Joi.number().optional(),
-    description:Joi.string().min(4).max(20).optional(),
+    description:Joi.string().min(4).max(40).optional(),
     like_count:Joi.number().optional(),
     comment_count:Joi.number().optional(),
     image:Joi.optional()

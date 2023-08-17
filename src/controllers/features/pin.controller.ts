@@ -3,7 +3,7 @@ import Pin from "../../models/pin.model";
 import Saved from "../../models/saved.model";
 import { client } from "../../database/redis"
 import Category from "../../models/category.model";
-import { createPinValid ,updatePinValid} from "../../validations/feature.validations";
+import { createPinValid, updatePinValid } from "../../validations/feature.validations";
 
 export const createPin = async (req: any, res: any) => {
 
@@ -36,7 +36,7 @@ export const createPin = async (req: any, res: any) => {
 
 export const updatePin = async (req: any, res: any) => {
     try {
-       let { error } = await updatePinValid.validateAsync(req.body)
+        let { error } = await updatePinValid.validateAsync(req.body)
         let pinData = await Pin.update(req.body, { where: { id: req.body.id } })
         return res.send(pinData)
 
@@ -50,7 +50,9 @@ export const updatePin = async (req: any, res: any) => {
 
 export const pinImage = async (req: any, res: any) => {
     const { id } = req.params;
+    console.log(id);
     if (req.file) {
+
         try {
 
             const file = req.file.buffer
@@ -122,7 +124,7 @@ export const comment_count = async (req: any, res: any) => {
 
     catch (err) {
         console.error('Error incrementing comment:', err);
-        return res.status(500).json({ error: 'Internal server error' });
+        return res.status(500).send({ error: 'Internal server error' });
 
 
     }
@@ -154,7 +156,7 @@ export const searchFilter = async (req: any, res: any) => {
         const page = req.query.page
         const offset = (page - 1) * limit;
         const search = await Pin.findAll({
-            limit,offset,
+            limit, offset,
             where: {
                 [Op.or]:
                     [
@@ -240,9 +242,6 @@ export const getAllRecentPins = async (req: any, res: any) => {
             })
             console.log(recentPinData)
         }
-
-
-
     }
     catch (err) {
         console.log(err);

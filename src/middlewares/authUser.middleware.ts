@@ -16,6 +16,7 @@ export const authUser = async (req: any, res: any, next: any) => {
             console.log("Aaaaaaaa")
             
             let findSession:any = (await client.get("session")) ||  (await Session.findOne({ where: {user_id: token.userid}}));
+            console.log(findSession,"sese")
             if(findSession){
                 next()
             }

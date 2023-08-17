@@ -1,3 +1,8 @@
+securitySchemes:
+  bearerAuth: # arbitrary name for the security scheme
+    type: http
+    scheme: bearer
+    bearerFormat: JWT
 paths:
   /pin:
     post:
@@ -5,6 +10,13 @@ paths:
       description: Create Pin
       tags:
         - Pin
+      parameters:
+        - name: Authorization
+          in: headers
+          description: token
+          required: true
+          security:
+            - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -18,15 +30,15 @@ paths:
                   type: blob
                 title:
                   type: string
-                category_id: 
+                category_id:
                   type: integer
-                description: 
+                description:
                   type: string
-                like_count: 
+                like_count:
                   type: integer
-                comment_count: 
+                comment_count:
                   type: integer
-                pinned: 
+                pinned:
                   type: boolean
       responses:
         "200":
@@ -69,11 +81,11 @@ paths:
                 type: blob
               title:
                 type: string
-              category_id: 
+              category_id:
                 type: integer
-              description: 
+              description:
                 type: string
-              like_count: 
+              like_count:
                 type: integer
               comment_count:
                 type: integer

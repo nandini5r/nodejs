@@ -28,7 +28,9 @@ function swaggerDocs(app: Application, port: any) {
                 },
             ],
         },
+ 
         apis: ['src/swagger/onboarding.yaml', 'src/swagger/pins.yaml', 'src/swagger/category.yaml', 'src/swagger/user.yaml'],
+        
     };
 
     const specs = swaggerJsdoc(options);

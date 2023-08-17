@@ -4,8 +4,9 @@ import bcrypt from "bcrypt"
 import { loginValidate, registerValidate } from "../../validations/onboarding.validations";
 import Session from "../../models/session.model";
 import { client } from "../../database/redis";
-
-const Key = "key"
+import * as dotenv from "dotenv";
+dotenv.config()
+const Key :string = <string> process.env.JWT_KEY
 
 
 export const sign_up = async (req: any, res: any) => {
@@ -55,8 +56,10 @@ export const login = async (req: any, res: any, next: any) => {
 
 
             const result = await client.set("session", session_storage)
+            console.log(Key,"???????????");
+            
             const token: any = jwt.sign({ userid: user_exist.dataValues.id }, Key, { expiresIn: '24h' })
-
+              
             return res.status(200).json({
                 message: "Login succesfull",
                 token: token

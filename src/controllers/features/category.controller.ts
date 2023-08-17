@@ -28,7 +28,6 @@ export const createCategory = async (req: any, res: any) => {
 
 export const getCategoryDetails = async (req: any, res: any) => {
     try {
-         console.log(req.params.id,"idididid")
         let categoryData = await Category.findAll(
             { where: { id: req.params.id } }
         )
@@ -46,7 +45,7 @@ export const getCategoryDetails = async (req: any, res: any) => {
 
 export const updateCategory = async (req: any, res: any) => {
     try {
-        let categoryData = await Category.update(req.body, { where: { id: req.body.id } })
+        let categoryData = await Category.update(req.body, { where: { id: req.params.id } })
         return res.send(categoryData)
     }
     catch (error) {
@@ -61,7 +60,7 @@ export const updateCategory = async (req: any, res: any) => {
 export const deleteCategory = async (req: any, res: any) => {
 
     try {
-        let category = await Category.destroy({ where: { id: req.body.id } })
+        let category = await Category.destroy({ where: { id: req.params.id } })
         return res.send(category)
     }
     catch (error) {
